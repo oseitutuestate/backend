@@ -35,6 +35,6 @@ app.use("/api/v1/rent-commission", rentCommRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
 app.use("/api/v1/sms", smsRoutes);
 
-app.listen(Configs.PORT, () => {
-  console.log(`Server is running on port ${Configs.PORT}`);
+app.listen(3000, () => {
+  console.log(`Server is running on port 3000`);
 });
