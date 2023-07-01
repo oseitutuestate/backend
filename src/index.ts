@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, Express!");
+  res.status(200).json("Welcome To Osei Tutu II Estate");
 });
 
 //routes
