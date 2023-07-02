@@ -27,7 +27,7 @@ export default {
   }),
   payloadRental: Joi.object().keys({
     apartment: Joi.string().required(),
-    image: Joi.string().optional(),
+    images: Joi.array().optional(),
     furnished: Joi.boolean().required(),
     description: Joi.string().required(),
     perMonth: Joi.number().optional(),
@@ -35,12 +35,14 @@ export default {
     rentType: Joi.string().required(),
   }),
   updateRental: Joi.object().keys({
-    image: Joi.string().optional(),
     furnished: Joi.boolean().required(),
     description: Joi.string().required(),
     perMonth: Joi.number().optional(),
     perDay: Joi.number().optional(),
     rentType: Joi.string().required(),
+  }),
+  updateRentalImage: Joi.object().keys({
+    imageUrl: Joi.string().required(),
   }),
   id: Joi.object().keys({
     id: Joi.string().required(),

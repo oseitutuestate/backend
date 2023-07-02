@@ -9,7 +9,7 @@ const addAparmentForRental = async (req: Request, res: Response) => {
     apartment,
     furnished,
     description,
-    image,
+    images,
     perMonth,
     perDay,
     rentType,
@@ -26,7 +26,7 @@ const addAparmentForRental = async (req: Request, res: Response) => {
     apartment: new Types.ObjectId(apartment),
     furnished,
     description,
-    image,
+    images,
     perMonth,
     perDay,
     rentType,
@@ -57,9 +57,37 @@ const updateApartmentRental = async (req: Request, res: Response) => {
   res.status(200).json({ message: "Apartment retrieved", rental });
 };
 
+const updateRentalImage = async (req: Request, res: Response) => {
+  const { rentalId, imageIndex } = req.params;
+  const { imageUrl } = req.body;
+
+  try {
+    // Update the rental document
+    const updatedRental = await Rental.updateOne(
+      { _id: rentalId, "images.$": imageIndex },
+      { $set: { "images.$": imageUrl } }
+    );
+
+    if (updatedRental.matchedCount === 0) {
+      return res.status(404).json({ message: "Rental not found" });
+    }
+
+    if (updatedRental.modifiedCount === 0) {
+      return res
+        .status(200)
+        .json({ message: "Image already has the same URL" });
+    }
+
+    return res.status(200).json({ message: "Image updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to update image", error });
+  }
+};
+
 export {
   addAparmentForRental,
   getAvailableApartmentRentals,
   getSingleRental,
   updateApartmentRental,
+  updateRentalImage,
 };

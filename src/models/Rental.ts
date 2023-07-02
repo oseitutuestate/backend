@@ -17,9 +17,11 @@ const rentalSchema = new Schema(
       type: Schema.Types.String,
       required: true,
     },
-    image: {
-      type: Schema.Types.String,
-    },
+    images: [
+      {
+        type: Schema.Types.String,
+      },
+    ],
     perMonth: {
       type: Schema.Types.Number,
     },
