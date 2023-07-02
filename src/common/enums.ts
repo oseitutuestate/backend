@@ -32,3 +32,16 @@ export enum StatusCode {
   Ok = 200,
   BadRequest = 400,
 }
+
+export enum AptTypes {
+  OneBedroomApt = "one_bedroom",
+  TwoBedroomApt = "two_edrooms",
+  ThreeBedroomApt = "three_edrooms",
+  FourBedroomApt = "four_edrooms",
+}
+
+export enum RentTypes {
+  Airbnb = "airbnb",
+  Rent = "rent",
+  Lease = "lease",
+}

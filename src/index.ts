@@ -13,6 +13,7 @@ import rentCommRoutes from "./routes/rent/rent_commission.routes";
 import smsRoutes from "./routes/sms/sms.routes";
 import transactionRoutes from "./routes/transaction/transaction.routes";
 import userRoutes from "./routes/user/user.routes";
+import uploadRoutes from "./routes/upload/upload.routes";
 
 const app = express();
 app.use(express.json());
@@ -34,7 +35,8 @@ app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/rent-commission", rentCommRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
 app.use("/api/v1/sms", smsRoutes);
+app.use("/api/v1/upload", uploadRoutes);
 
-app.listen(3000, () => {
-  console.log(`Server is running on port 3000`);
+app.listen(Configs.PORT, () => {
+  console.log(`Server is running on port ${Configs.PORT}`);
 });

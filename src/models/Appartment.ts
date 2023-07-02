@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { Status } from "../common/enums";
+import { AptTypes, Status } from "../common/enums";
 
 const appartmentSchema = new Schema(
   {
@@ -9,6 +9,16 @@ const appartmentSchema = new Schema(
     },
     type: {
       type: String,
+    },
+    aptType: {
+      type: String,
+      enum: [
+        AptTypes.OneBedroomApt,
+        AptTypes.TwoBedroomApt,
+        AptTypes.ThreeBedroomApt,
+        AptTypes.FourBedroomApt,
+      ],
+      required: true,
     },
     block: {
       type: String,

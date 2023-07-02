@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { Status } from "../common/enums";
+import { RentTypes, Status } from "../common/enums";
 
 const rentalSchema = new Schema(
   {
@@ -7,6 +7,29 @@ const rentalSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Appartment",
       unique: true,
+    },
+    furnished: {
+      type: Schema.Types.Boolean,
+      required: true,
+      default: false,
+    },
+    description: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    image: {
+      type: Schema.Types.String,
+    },
+    perMonth: {
+      type: Schema.Types.Number,
+    },
+    perDay: {
+      type: Schema.Types.Number,
+    },
+    rentType: {
+      type: String,
+      enum: [RentTypes.Airbnb, RentTypes.Rent, RentTypes.Lease],
+      required: true,
     },
     rents: {
       type: [
@@ -16,18 +39,19 @@ const rentalSchema = new Schema(
         },
       ],
     },
-    image: {
-      type: Schema.Types.String,
-    },
-    pricePerMonth: {
-      type: Schema.Types.String,
-      required: true,
-    },
     status: {
       type: String,
       enum: [Status.Active, Status.InActive],
       default: Status.Active,
     },
+    // reviews: {
+    //   type: [
+    //     {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Review",
+    //     },
+    //   ],
+    // },
   },
   { timestamps: true }
 );

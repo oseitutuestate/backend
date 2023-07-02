@@ -5,7 +5,15 @@ import RentalCommission from "../../models/RentCommission";
 import { Types } from "mongoose";
 
 const addAparmentForRental = async (req: Request, res: Response) => {
-  const { apartment, image, pricePerMonth } = req.body;
+  const {
+    apartment,
+    furnished,
+    description,
+    image,
+    perMonth,
+    perDay,
+    rentType,
+  } = req.body;
   const exist = await Rental.findOne({
     apartment: new Types.ObjectId(apartment),
   });
@@ -16,8 +24,12 @@ const addAparmentForRental = async (req: Request, res: Response) => {
 
   const rental = await Rental.create({
     apartment: new Types.ObjectId(apartment),
+    furnished,
+    description,
     image,
-    pricePerMonth,
+    perMonth,
+    perDay,
+    rentType,
   });
   res.status(200).json({ message: "Rental created", rental });
 };
