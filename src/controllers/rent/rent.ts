@@ -46,7 +46,7 @@ const getBookedAirbnb = async (req: Request, res: Response) => {
 };
 
 const getRentedApts = async (req: Request, res: Response) => {
-  const rentedApt = await Rent.find({ type: RentTypes.Airbnb });
+  const rentedApt = await Rent.find({ type: RentTypes.Rent });
   res.status(200).json({ message: "Rents retrieved", rentedApt });
 };
 
