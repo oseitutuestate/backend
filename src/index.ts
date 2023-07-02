@@ -30,7 +30,7 @@ app.use("/api/v1/block", blockRoutes);
 app.use("/api/v1/appartment", apartmentRoutes);
 app.use("/api/v1/record-payment", facilityPaymentRoutes);
 app.use("/api/v1/expense", expenseRoutes);
-app.use("/api/v1/rent-booking", rentRoutes);
+app.use("/api/v1/rent", rentRoutes);
 app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/rent-commission", rentCommRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
