@@ -14,6 +14,10 @@ import smsRoutes from "./routes/sms/sms.routes";
 import transactionRoutes from "./routes/transaction/transaction.routes";
 import userRoutes from "./routes/user/user.routes";
 import uploadRoutes from "./routes/upload/upload.routes";
+import conversationRoutes from "./routes/chatbot/conversation.routes";
+import botUserRoutes from "./routes/chatbot/bot.user.routes";
+import botResponseRoutes from "./routes/chatbot/bot.response.routes";
+import webhookRoutes from "./routes/chatbot/webhook.routes";
 
 const app = express();
 app.use(express.json());
@@ -27,7 +31,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/block", blockRoutes);
-app.use("/api/v1/appartment", apartmentRoutes);
+app.use("/api/v1/apartment", apartmentRoutes);
 app.use("/api/v1/record-payment", facilityPaymentRoutes);
 app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/rent", rentRoutes);
@@ -36,6 +40,10 @@ app.use("/api/v1/rent-commission", rentCommRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
 app.use("/api/v1/sms", smsRoutes);
 app.use("/api/v1/upload", uploadRoutes);
+app.use("/webhook", webhookRoutes);
+app.use("/api/v1/bot-users", botUserRoutes);
+app.use("/api/v1/conversation", conversationRoutes);
+app.use("/api/v1/bot-response", botResponseRoutes);
 
 app.listen(Configs.PORT, () => {
   console.log(`Server is running on port ${Configs.PORT}`);

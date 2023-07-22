@@ -4,14 +4,14 @@ import { AptTypes, Status } from "../common/enums";
 const appartmentSchema = new Schema(
   {
     houseNumber: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     type: {
-      type: String,
+      type: Schema.Types.String,
     },
     aptType: {
-      type: String,
+      type: Schema.Types.String,
       enum: [
         AptTypes.OneBedroomApt,
         AptTypes.TwoBedroomApt,
@@ -20,24 +20,28 @@ const appartmentSchema = new Schema(
       ],
       required: true,
     },
+    bedrooms: {
+      type: Schema.Types.Number,
+      required: true,
+    },
     block: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     ownerName: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     ownerEmail: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     ownerNumber: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     status: {
-      type: String,
+      type: Schema.Types.String,
       enum: [Status.Active, Status.InActive],
       default: Status.Active,
     },

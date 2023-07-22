@@ -13,28 +13,21 @@ const getFacilityPayment = async (req: Request, res: Response) => {
 };
 
 const updateFacilityPayment = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const payment = await FacilityPayment.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    res.status(200).json({ payment });
-  } catch (error) {
-    console.log(error);
-  }
+  const id = req.params.id;
+  const payment = await FacilityPayment.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  res.status(200).json({ payment });
 };
 
 const deleteFacilityPayment = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    await FacilityPayment.findByIdAndDelete(id);
-    res
-      .status(200)
-      .json({ error: null, msg: "Payment Record deleted successfully" });
-  } catch (error) {
-    console.log(error);
-  }
+  const id = req.params.id;
+  await FacilityPayment.findByIdAndDelete(id);
+  res
+    .status(200)
+    .json({ error: null, msg: "Payment Record deleted successfully" });
 };
+
 export {
   getFacilityPayments,
   getFacilityPayment,

@@ -18,7 +18,6 @@ const sendSMS = async (recipient: string[], message: string) => {
 
   return await request(options, function (error, response) {
     if (response.body.status === "success") {
-      console.log("res::::::", response.body);
       const res = {
         message: "sms sent to user(s)",
         status: 200,
@@ -26,7 +25,6 @@ const sendSMS = async (recipient: string[], message: string) => {
 
       return res;
     } else {
-      console.log("err::::::", response.body);
       const res = {
         message: response.body.message,
         status: 400,

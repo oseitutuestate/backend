@@ -1,17 +1,22 @@
 import { Request, Response } from "express";
-import Rent from "../../models/Rent";
 import Rental from "../../models/Rental";
-import RentalCommission from "../../models/RentCommission";
 import { Types } from "mongoose";
+import { Status } from "../../common/enums";
 
 const addAparmentForRental = async (req: Request, res: Response) => {
   const {
     apartment,
+    maxguests,
     furnished,
+    bedrooms,
+    bathrooms,
+    fenced,
+    aircondition,
+    airconditionDetail,
+    headline,
     description,
     images,
-    perMonth,
-    perDay,
+    price,
     rentType,
   } = req.body;
   const exist = await Rental.findOne({
@@ -24,21 +29,63 @@ const addAparmentForRental = async (req: Request, res: Response) => {
 
   const rental = await Rental.create({
     apartment: new Types.ObjectId(apartment),
+    maxguests,
     furnished,
+    bedrooms,
+    bathrooms,
+    fenced,
+    aircondition,
+    airconditionDetail,
+    headline,
     description,
     images,
-    perMonth,
-    perDay,
+    price,
     rentType,
   });
   res.status(200).json({ message: "Rental created", rental });
 };
 
+// const getAvailableApartmentRentals = async (req: Request, res: Response) => {
+//   const rentals = await Rental.find({ status: Status.Active })
+//     .populate({ path: "apartment" })
+//     .populate({ path: "rents" });
+//   res.status(200).json({ message: "Rentals retrieved", rentals });
+// };
+
 const getAvailableApartmentRentals = async (req: Request, res: Response) => {
-  const rentals = await Rental.find()
+  const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+  const pageSize = req.query.pageSize
+    ? parseInt(req.query.pageSize as string, 10)
+    : 10;
+
+  const count = await Rental.countDocuments({ status: Status.Active });
+  const totalPages = Math.ceil(count / pageSize);
+
+  const rentals = await Rental.find({ status: Status.Active })
     .populate({ path: "apartment" })
-    .populate({ path: "rents" });
-  res.status(200).json({ message: "Rentals retrieved", rentals });
+    .populate({ path: "rents" })
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
+
+  res.status(200).json({ message: "Rentals retrieved", rentals, totalPages });
+};
+
+const getFeaturedApartmentRentals = async (req: Request, res: Response) => {
+  const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+  const pageSize = req.query.pageSize
+    ? parseInt(req.query.pageSize as string, 10)
+    : 10;
+
+  const count = await Rental.countDocuments({ featured: true });
+  const totalPages = Math.ceil(count / pageSize);
+
+  const featured = await Rental.find({ featured: true })
+    .populate({ path: "apartment" })
+    .populate({ path: "rents" })
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
+
+  res.status(200).json({ message: "Featured retrieved", featured, totalPages });
 };
 
 const getSingleRental = async (req: Request, res: Response) => {
@@ -87,6 +134,7 @@ const updateRentalImage = async (req: Request, res: Response) => {
 export {
   addAparmentForRental,
   getAvailableApartmentRentals,
+  getFeaturedApartmentRentals,
   getSingleRental,
   updateApartmentRental,
   updateRentalImage,

@@ -8,25 +8,55 @@ const rentalSchema = new Schema(
       ref: "Appartment",
       unique: true,
     },
+    maxguests: {
+      type: Schema.Types.Number,
+      required: true,
+    },
     furnished: {
       type: Schema.Types.Boolean,
       required: true,
       default: false,
     },
+    bedrooms: {
+      type: Schema.Types.Number,
+      required: true,
+    },
+    bathrooms: {
+      type: Schema.Types.Number,
+      required: true,
+    },
+    fenced: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
+    aircondition: {
+      type: Schema.Types.Boolean,
+      required: true,
+      default: false,
+    },
+    airconditionDetail: {
+      type: Schema.Types.String,
+    },
+    headline: {
+      type: Schema.Types.String,
+      required: true,
+    },
     description: {
       type: Schema.Types.String,
       required: true,
+    },
+    featured: {
+      type: Schema.Types.Boolean,
+      default: false,
     },
     images: [
       {
         type: Schema.Types.String,
       },
     ],
-    perMonth: {
+    price: {
       type: Schema.Types.Number,
-    },
-    perDay: {
-      type: Schema.Types.Number,
+      required: true,
     },
     rentType: {
       type: String,

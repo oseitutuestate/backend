@@ -1,22 +1,34 @@
 import { Request, Response } from "express";
 import Appartment from "../../models/Appartment";
 
-const getAppartments = async (req: Request, res: Response) => {
-  const appartments = await Appartment.find();
-  res.status(200).json({ appartments });
+const getApartments = async (req: Request, res: Response) => {
+  const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+  const pageSize = req.query.pageSize
+    ? parseInt(req.query.pageSize as string, 10)
+    : 10;
+
+  const count = await Appartment.countDocuments();
+  const totalPages = Math.ceil(count / pageSize);
+
+  const apartments = await Appartment.find()
+    .skip((page - 1) * pageSize)
+    .limit(pageSize);
+  res
+    .status(200)
+    .json({ message: "Appartments retrieved", apartments, totalPages });
 };
 
-const getAppartment = async (req: Request, res: Response) => {
+const getApartment = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const appartments = await Appartment.findById(id);
-  res.status(200).json({ appartments });
+  const apartments = await Appartment.findById(id);
+  res.status(200).json({ apartments });
 };
 
-const createAppartment = async (req: Request, res: Response) => {
+const createApartment = async (req: Request, res: Response) => {
   try {
     const { type, houseNumber, block, ownerName, ownerEmail, ownerNumber } =
       req.body;
-    const appartment = await Appartment.create({
+    const apartment = await Appartment.create({
       type,
       houseNumber,
       block,
@@ -24,43 +36,32 @@ const createAppartment = async (req: Request, res: Response) => {
       ownerEmail,
       ownerNumber,
     });
-    if (appartment) {
-      // console.log(appartment);
-      res.status(201).json({ appartment });
+    if (apartment) {
+      res.status(201).json({ apartment });
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
-const updateAppartment = async (req: Request, res: Response) => {
+const updateApartment = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const appartment = await Appartment.findByIdAndUpdate(id, req.body, {
+    const apartment = await Appartment.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.status(200).json({ appartment });
-  } catch (error) {
-    // console.log(error);
-  }
+    res.status(200).json({ apartment });
+  } catch (error) {}
 };
 
-const deleteAppartment = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    await Appartment.findByIdAndDelete(id);
-    res
-      .status(200)
-      .json({ error: null, msg: "Appartment deleted successfully" });
-  } catch (error) {
-    console.log(error);
-  }
+const deleteApartment = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  await Appartment.findByIdAndDelete(id);
+  res.status(200).json({ error: null, msg: "Apartment deleted successfully" });
 };
 
 export {
-  getAppartments,
-  getAppartment,
-  createAppartment,
-  updateAppartment,
-  deleteAppartment,
+  getApartments,
+  getApartment,
+  createApartment,
+  updateApartment,
+  deleteApartment,
 };

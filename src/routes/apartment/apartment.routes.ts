@@ -4,24 +4,24 @@ import authentication from "../../middleware/authentication";
 import validator from "../../middleware/validator";
 import schema from "./schema";
 import {
-  getAppartment,
-  createAppartment,
-  deleteAppartment,
-  getAppartments,
-  updateAppartment,
+  getApartment,
+  createApartment,
+  deleteApartment,
+  getApartments,
+  updateApartment,
 } from "../../controllers/apartment/apartment";
 
 const router = express.Router();
 
-router.get("/all", authentication, getAppartments);
-router.get("/:id", authentication, getAppartment);
+router.get("/", getApartments);
+router.get("/:id", authentication, getApartment);
 router.post(
   "/create",
   validator(schema.payload),
   authentication,
-  createAppartment
+  createApartment
 );
-router.patch("/:id", authentication, updateAppartment);
-router.delete("/:id", authentication, adminRole, deleteAppartment);
+router.patch("/:id", authentication, updateApartment);
+router.delete("/:id", authentication, adminRole, deleteApartment);
 
 export default router;

@@ -5,6 +5,7 @@ import schema from "./schema";
 import {
   addAparmentForRental,
   getAvailableApartmentRentals,
+  getFeaturedApartmentRentals,
   getSingleRental,
   updateApartmentRental,
   updateRentalImage,
@@ -12,8 +13,9 @@ import {
 
 const router = express.Router();
 
-router.get("/all", authentication, getAvailableApartmentRentals);
-router.get("/:id", authentication, getSingleRental);
+router.get("/", getAvailableApartmentRentals);
+router.get("/featured", getFeaturedApartmentRentals);
+router.get("/:id", getSingleRental);
 router.post(
   "/create",
   validator(schema.payloadRental),

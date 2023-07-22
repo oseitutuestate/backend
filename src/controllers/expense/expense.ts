@@ -13,25 +13,17 @@ const getExpense = async (req: Request, res: Response) => {
 };
 
 const updateExpense = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const expense = await Expense.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    res.status(200).json({ expense });
-  } catch (error) {
-    console.log(error);
-  }
+  const id = req.params.id;
+  const expense = await Expense.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  res.status(200).json({ expense });
 };
 
 const deleteExpense = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    await Expense.findByIdAndDelete(id);
-    res.status(200).json({ error: null, msg: "Expense deleted successfully" });
-  } catch (error) {
-    console.log(error);
-  }
+  const id = req.params.id;
+  await Expense.findByIdAndDelete(id);
+  res.status(200).json({ error: null, msg: "Expense deleted successfully" });
 };
 
 export { getExpenses, getExpense, updateExpense, deleteExpense };

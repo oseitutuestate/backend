@@ -31,9 +31,7 @@ const signup = async (req: Request, res: Response) => {
         (isAdmin && RoleCode.Admin) || (isSuperAdmin && RoleCode.SuperAdmin),
     });
     res.status(201).json({ user });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 const signin = async (req: Request, res: Response) => {
@@ -58,9 +56,7 @@ const signin = async (req: Request, res: Response) => {
       user.email
     );
     res.status(200).json({ user, accessToken, refreshToken });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 const refreshToken = async (req: Request, res: Response) => {
