@@ -159,7 +159,7 @@ async function createConversation(
 }
 
 async function sendWhatsAppMessage(to: string, message: string, numberId: any) {
-  const WA_API_URL = "https://graph.facebook.com/v13.0/";
+  const WA_API_URL = "https://graph.facebook.com/v17.0/";
   const response = await axios.post(
     `${WA_API_URL}${numberId}/messages?access_token=${token}`,
     {
