@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", authentication, getTransactions);
+router.get("/", getTransactions);
 router.get("/:id", authentication, getSingleTransaction);
 router.post("/", validator(schema.payload), authentication, createTransaction);
 router.delete("/:id", authentication, adminRole, deleteTransaction);
