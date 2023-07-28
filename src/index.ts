@@ -18,6 +18,7 @@ import conversationRoutes from "./routes/chatbot/conversation.routes";
 import botUserRoutes from "./routes/chatbot/bot.user.routes";
 import botResponseRoutes from "./routes/chatbot/bot.response.routes";
 import webhookRoutes from "./routes/chatbot/webhook.routes";
+import analyticsRoutes from "./routes/analytics/analytics.routes";
 
 const app = express();
 app.use(express.json());
@@ -44,6 +45,7 @@ app.use("/webhook", webhookRoutes);
 app.use("/api/v1/bot-users", botUserRoutes);
 app.use("/api/v1/conversation", conversationRoutes);
 app.use("/api/v1/bot-response", botResponseRoutes);
+app.use("/api/v1/analytics", analyticsRoutes);
 
 app.listen(Configs.PORT, () => {
   console.log(`Server is running on port ${Configs.PORT}`);
