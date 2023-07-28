@@ -12,14 +12,9 @@ import {
 
 const router = express.Router();
 
-router.get("/all", authentication, getTransactions);
+router.get("/", authentication, getTransactions);
 router.get("/:id", authentication, getSingleTransaction);
-router.post(
-  "/create",
-  validator(schema.payload),
-  authentication,
-  createTransaction
-);
+router.post("/", validator(schema.payload), authentication, createTransaction);
 router.delete("/:id", authentication, adminRole, deleteTransaction);
 
 export default router;
