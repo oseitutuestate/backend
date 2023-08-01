@@ -2,8 +2,22 @@ import { Request, Response } from "express";
 import Expense from "../../models/Expense";
 
 const getExpenses = async (req: Request, res: Response) => {
-  const expenses = await Expense.find();
-  res.status(200).json({ expenses });
+  let page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+  const pageSize = req.query.pageSize
+    ? parseInt(req.query.pageSize as string, 10)
+    : 10;
+
+  // Ensure that page is at least 1
+  page = Math.max(1, page);
+
+  const count = await Expense.countDocuments();
+  const totalPages = Math.ceil(count / pageSize);
+
+  // Calculate the correct skip value
+  const skipValue = (page - 1) * pageSize;
+
+  const expenses = await Expense.find().skip(skipValue).limit(pageSize);
+  res.status(200).json({ message: "Expenses retrieved", expenses, totalPages });
 };
 
 const getExpense = async (req: Request, res: Response) => {

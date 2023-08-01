@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.get("/all", authentication, getExpenses);
+router.get("/", authentication, getExpenses);
 router.get("/:id", authentication, getExpense);
 // router.patch("/:id", authentication, adminRole, updateExpense);
 router.delete("/:id", authentication, adminRole, deleteExpense);

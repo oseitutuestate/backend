@@ -28,7 +28,7 @@ const expenseSchema = new Schema(
     transactionId: {
       type: Schema.Types.ObjectId,
       ref: "Transaction",
-      required: true,
+      // required: true,
     },
   },
   { timestamps: true }

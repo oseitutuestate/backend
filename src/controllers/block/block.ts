@@ -8,8 +8,8 @@ const getBlocks = async (req: Request, res: Response) => {
 
 const getBlock = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const blocks = await Block.findById(id);
-  res.status(200).json({ blocks });
+  const block = await Block.findById(id);
+  res.status(200).json({ block });
 };
 
 const createBlock = async (req: Request, res: Response) => {
@@ -18,7 +18,7 @@ const createBlock = async (req: Request, res: Response) => {
     const block = await Block.create({
       name,
     });
-    if (Block) {
+    if (block) {
       res.status(201).json({ error: null, data: block });
     }
   } catch (error) {}

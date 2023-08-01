@@ -13,6 +13,10 @@ const userSchema = new Schema(
       unique: true,
       required: true,
     },
+    contact: {
+      type: String,
+      unique: true,
+    },
     password: {
       type: String,
       required: true,

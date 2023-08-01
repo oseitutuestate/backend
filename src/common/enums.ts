@@ -54,3 +54,10 @@ export enum ResponseType {
   Services = "services",
   ThankYou = "thank_you",
 }
+
+export enum WalletType {
+  CreditCard = "creditcard",
+  PettyCash = "petty_cash",
+  FuelCard = "fuel_card",
+  Salary = "salary",
+}

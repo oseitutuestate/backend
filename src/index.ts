@@ -19,6 +19,9 @@ import botUserRoutes from "./routes/chatbot/bot.user.routes";
 import botResponseRoutes from "./routes/chatbot/bot.response.routes";
 import webhookRoutes from "./routes/chatbot/webhook.routes";
 import analyticsRoutes from "./routes/analytics/analytics.routes";
+import amenitiesRoutes from "./routes/amenities/amenities.routes";
+import walletRoutes from "./routes/wallet/wallet.routes";
+import cashfundRoutes from "./routes/cashfund/cashfund.routes";
 
 const app = express();
 app.use(express.json());
@@ -46,6 +49,9 @@ app.use("/api/v1/bot-users", botUserRoutes);
 app.use("/api/v1/conversation", conversationRoutes);
 app.use("/api/v1/bot-response", botResponseRoutes);
 app.use("/api/v1/analytics", analyticsRoutes);
+app.use("/api/v1/amenities", amenitiesRoutes);
+app.use("/api/v1/wallet", walletRoutes);
+app.use("/api/v1/cash-fund", cashfundRoutes);
 
 app.listen(Configs.PORT, () => {
   console.log(`Server is running on port ${Configs.PORT}`);

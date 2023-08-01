@@ -2,17 +2,22 @@ import { Request, Response } from "express";
 import Appartment from "../../models/Appartment";
 
 const getApartments = async (req: Request, res: Response) => {
-  const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+  let page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
   const pageSize = req.query.pageSize
     ? parseInt(req.query.pageSize as string, 10)
     : 10;
 
+  // Ensure that page is at least 1
+  page = Math.max(1, page);
+
   const count = await Appartment.countDocuments();
   const totalPages = Math.ceil(count / pageSize);
 
-  const apartments = await Appartment.find()
-    .skip((page - 1) * pageSize)
-    .limit(pageSize);
+  // Calculate the correct skip value
+  const skipValue = (page - 1) * pageSize;
+
+  const apartments = await Appartment.find().skip(skipValue).limit(pageSize);
+
   res
     .status(200)
     .json({ message: "Appartments retrieved", apartments, totalPages });
