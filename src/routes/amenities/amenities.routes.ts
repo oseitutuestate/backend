@@ -15,8 +15,8 @@ const router = express.Router();
 
 router.get("/", getAmenities);
 router.get("/:id", authentication, getAmenity);
-router.post("/", validator(schema.payload), authentication, createAmenities);
-router.patch("/:id", authentication, updateAmenities);
+router.post("/", authentication, validator(schema.payload), createAmenities);
+router.patch("/:id", authentication, adminRole, updateAmenities);
 router.delete("/:id", authentication, adminRole, deleteAmenities);
 
 export default router;

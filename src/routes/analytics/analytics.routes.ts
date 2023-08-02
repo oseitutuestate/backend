@@ -4,6 +4,6 @@ import { getAnalytics } from "../../controllers/analytics/analytics";
 
 const router = express.Router();
 
-router.get("/", getAnalytics);
+router.get("/", authentication, getAnalytics);
 
 export default router;

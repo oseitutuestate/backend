@@ -5,9 +5,9 @@ export default {
   signupAuth: Joi.object().keys({
     fullname: Joi.string().required().min(3),
     email: Joi.string().required().min(4),
+    contact: Joi.string().required().min(10),
     password: Joi.string().required().min(6),
-    isAdmin: Joi.boolean().optional(),
-    isSuperAdmin: Joi.boolean().optional(),
+    roleCode: Joi.string().optional(),
   }),
   signinAuth: Joi.object().keys({
     email: Joi.string().required(),

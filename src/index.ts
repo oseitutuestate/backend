@@ -22,6 +22,9 @@ import analyticsRoutes from "./routes/analytics/analytics.routes";
 import amenitiesRoutes from "./routes/amenities/amenities.routes";
 import walletRoutes from "./routes/wallet/wallet.routes";
 import cashfundRoutes from "./routes/cashfund/cashfund.routes";
+import AssetRoutes from "./routes/asset/asset.routes";
+import MaintenanceRoutes from "./routes/maintenance/maintenance.routes";
+import TaskRoutes from "./routes/task/task.routes";
 
 const app = express();
 app.use(express.json());
@@ -52,6 +55,9 @@ app.use("/api/v1/analytics", analyticsRoutes);
 app.use("/api/v1/amenities", amenitiesRoutes);
 app.use("/api/v1/wallet", walletRoutes);
 app.use("/api/v1/cash-fund", cashfundRoutes);
+app.use("/api/v1/asset", AssetRoutes);
+app.use("/api/v1/maintenance", MaintenanceRoutes);
+app.use("/api/v1/task", TaskRoutes);
 
 app.listen(Configs.PORT, () => {
   console.log(`Server is running on port ${Configs.PORT}`);

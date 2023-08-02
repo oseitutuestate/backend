@@ -52,7 +52,7 @@ const getAnalytics = async (req: Request, res: Response) => {
         total: amenitiesCount,
         totalAmount: amenitiesPaidinTotal,
       },
-      revenue: { amount: totalAmount + amenitiesPaidinTotal },
+      revenue: { amount: fcPaymentinTotal + amenitiesPaidinTotal },
       pettycash: { balance: pettycash ? pettycash.balance : 0 },
     };
 

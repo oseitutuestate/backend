@@ -12,7 +12,6 @@ const CashFundSchema = new Schema<CashFundModel>(
     wallet: {
       type: Schema.Types.ObjectId,
       ref: "Wallet",
-      unique: true,
     },
     amount: {
       type: Schema.Types.Number,

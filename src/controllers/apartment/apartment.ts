@@ -25,8 +25,8 @@ const getApartments = async (req: Request, res: Response) => {
 
 const getApartment = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const apartments = await Appartment.findById(id);
-  res.status(200).json({ apartments });
+  const apartment = await Appartment.findById(id);
+  res.status(200).json({ apartment });
 };
 
 const createApartment = async (req: Request, res: Response) => {
@@ -44,7 +44,9 @@ const createApartment = async (req: Request, res: Response) => {
     if (apartment) {
       res.status(201).json({ apartment });
     }
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 const updateApartment = async (req: Request, res: Response) => {
@@ -54,13 +56,15 @@ const updateApartment = async (req: Request, res: Response) => {
       new: true,
     });
     res.status(200).json({ apartment });
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleteApartment = async (req: Request, res: Response) => {
   const id = req.params.id;
   await Appartment.findByIdAndDelete(id);
-  res.status(200).json({ error: null, msg: "Apartment deleted successfully" });
+  res.status(200).json({ message: "Apartment deleted successfully" });
 };
 
 export {

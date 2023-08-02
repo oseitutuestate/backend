@@ -1,35 +1,29 @@
 import { Schema, model, Document } from "mongoose";
 
-//Refactoring all payments in one model Transaction or refactor the recordPaymentSchema to look like the schedule
-// Transaction will have type, amount,
-
 interface FacilityPaymentModel extends Document {
-  apartment: Schema.Types.ObjectId;
-  transactionId: Schema.Types.ObjectId;
+  apartmentId: any;
   paymentAmount: number;
-  paymentMonth: string;
+  paymentMonths: any;
   paymentYear: string;
+  paidBy: string;
+  recordedBy: string;
   paymentDate: Date;
+  // transactionId?: any;
 }
 
 const facilityPaymentSchema = new Schema<FacilityPaymentModel>(
   {
-    apartment: {
+    apartmentId: {
       type: Schema.Types.ObjectId,
-      ref: "Apartment",
-      required: true,
-    },
-    transactionId: {
-      type: Schema.Types.ObjectId,
-      ref: "Transaction",
+      ref: "Appartment",
       required: true,
     },
     paymentAmount: {
       type: Schema.Types.Number,
       required: true,
     },
-    paymentMonth: {
-      type: Schema.Types.String,
+    paymentMonths: {
+      type: Schema.Types.Array,
       required: true,
     },
     paymentYear: {
@@ -39,8 +33,19 @@ const facilityPaymentSchema = new Schema<FacilityPaymentModel>(
     paymentDate: {
       type: Date,
       default: Date.now,
+    },
+    paidBy: {
+      type: Schema.Types.String,
       required: true,
     },
+    recordedBy: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    // transactionId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Transaction",
+    // },
   },
   { timestamps: true }
 );

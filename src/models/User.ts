@@ -23,7 +23,15 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: [RoleCode.FrontDesk, RoleCode.Admin, RoleCode.SuperAdmin],
+      enum: [
+        RoleCode.FrontDesk,
+        RoleCode.Admin,
+        RoleCode.SuperAdmin,
+        RoleCode.AssistantFacilityManager,
+        RoleCode.CustomerService,
+        RoleCode.GeneralManager,
+        RoleCode.Officer,
+      ],
       default: RoleCode.FrontDesk,
     },
   },

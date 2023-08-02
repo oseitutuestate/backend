@@ -10,11 +10,16 @@ import {
 import { RoleCode } from "../../common/enums";
 
 const signup = async (req: Request, res: Response) => {
-  const { fullname, email, password, isAdmin, isSuperAdmin } = req.body;
+  const { fullname, email, contact, password, roleCode } = req.body;
   try {
     const exist = await User.findOne({ email });
     if (exist) {
       return res.status(400).json({ message: "User email already exists" });
+    }
+
+    const isContact = await User.findOne({ contact });
+    if (isContact) {
+      return res.status(400).json({ message: "User contact already exists" });
     }
 
     const checkname = await User.findOne({ fullname });
@@ -26,10 +31,11 @@ const signup = async (req: Request, res: Response) => {
     const user = await User.create({
       fullname,
       email,
+      contact,
       password: hashPassword,
-      role:
-        (isAdmin && RoleCode.Admin) || (isSuperAdmin && RoleCode.SuperAdmin),
+      role: roleCode,
     });
+    // (isAdmin && RoleCode.Admin) || (isSuperAdmin && RoleCode.SuperAdmin),
     res.status(201).json({ user });
   } catch (err) {}
 };

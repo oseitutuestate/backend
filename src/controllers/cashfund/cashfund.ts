@@ -42,26 +42,32 @@ const createCashFund = async (req: Request, res: Response) => {
       throw new Error("Wallet not found!");
     }
 
+    // Add validation for amount and fundedBy fields if necessary
+    if (typeof amount !== "number" || amount <= 0) {
+      throw new Error("Invalid amount value");
+    }
+
+    if (typeof fundedBy !== "string" || fundedBy.trim() === "") {
+      throw new Error("Invalid fundedBy value");
+    }
+
     const cashFund = await CashFund.create({
       wallet: new Types.ObjectId(wallet),
       amount,
       fundedBy,
     });
+
     if (cashFund) {
       const newBalance = wlt.balance + amount;
-      // await Wallet.findByIdAndUpdate(
-      //   wlt._id,
-      //   { balance: newBalance },
-      //   { new: true }
-      // );
-
       wlt.balance = newBalance;
       wlt.fundHistory.push(new Types.ObjectId(cashFund._id));
       await wlt.save();
 
       res.status(201).json({ cashFund });
     }
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 const updateCashFund = async (req: Request, res: Response) => {
@@ -71,7 +77,9 @@ const updateCashFund = async (req: Request, res: Response) => {
       new: true,
     });
     res.status(200).json({ cashFund });
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleteCashFund = async (req: Request, res: Response) => {

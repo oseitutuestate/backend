@@ -43,7 +43,7 @@ const createAmenities = async (req: Request, res: Response) => {
       recordedBy,
     });
     if (amenities) {
-      res.status(201).json({ error: null, data: amenities });
+      res.status(201).json({ data: amenities });
     }
   } catch (error) {}
 };

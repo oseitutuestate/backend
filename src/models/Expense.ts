@@ -1,7 +1,16 @@
 import { Schema, model } from "mongoose";
-import { RoleCode } from "../common/enums";
 
-const expenseSchema = new Schema(
+interface ExpressModel extends Document {
+  item: string;
+  quantity: number;
+  unitPrice: number;
+  totalAmount: number;
+  walletId: any;
+  user: string;
+  transactionId?: any;
+}
+
+const expenseSchema = new Schema<ExpressModel>(
   {
     item: {
       type: String,
@@ -21,6 +30,11 @@ const expenseSchema = new Schema(
       type: Number,
       required: true,
     },
+    walletId: {
+      type: Schema.Types.ObjectId,
+      ref: "Wallet",
+      required: true,
+    },
     user: {
       type: String,
       required: true,
@@ -34,4 +48,4 @@ const expenseSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Expense", expenseSchema);
+export default model<ExpressModel>("Expense", expenseSchema);

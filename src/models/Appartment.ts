@@ -45,14 +45,12 @@ const appartmentSchema = new Schema(
       enum: [Status.Active, Status.InActive],
       default: Status.Active,
     },
-    facilityPayments: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "FacilityPayment",
-        },
-      ],
-    },
+    facilityPayments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "FacilityPayment",
+      },
+    ],
   },
   { timestamps: true }
 );
